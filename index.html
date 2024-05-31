@@ -14,16 +14,8 @@
             align-items: center;
             justify-content: center;
             background: linear-gradient(135deg, #ff0080, #8000ff);
-            font-family: 'Press Start 2P', cursive;
+            font-family: 'Roboto', sans-serif;
             color: white;
-            text-shadow: 
-                0 0 5px #fff, 
-                0 0 10px #fff, 
-                0 0 15px #ff0080, 
-                0 0 20px #ff0080, 
-                0 0 25px #ff0080,
-                0 0 30px #ff0080,
-                0 0 35px #ff0080;
         }
 
         header, main, footer {
@@ -119,7 +111,7 @@
             padding: 10px;
             font-size: 16px;
             transition: background 0.3s ease;
-            font-family: 'Press Start 2P', cursive;
+            font-family: 'Roboto', sans-serif;
             color: #000;
         }
 
@@ -213,8 +205,17 @@
 
             const modelName = document.getElementById('model-name');
             modelViewer.setAttribute('src', models[currentIndex]);
+            modelViewer.setAttribute('ios-src', modelNames[currentIndex] + '.usdz');
             modelName.innerText = modelNames[currentIndex];
         }
 
-        document.getElementById('prevButton').addEventListener('click', prevModel);
-        document.getElementById('nextButton').addEventListener('click',
+        document.addEventListener('DOMContentLoaded', () => {
+            checkARCoreCompatibility();
+            updateModel();
+
+            document.getElementById('prevButton').addEventListener('click', prevModel);
+            document.getElementById('nextButton').addEventListener('click', nextModel);
+        });
+    </script>
+</body>
+</html>
