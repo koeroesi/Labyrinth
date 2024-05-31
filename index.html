@@ -1,4 +1,5 @@
-<!DOCTYPE html>
+
+ <!DOCTYPE html>
 <html lang="en" dir="ltr">
 <head>
   <meta charset="utf-8">
@@ -47,6 +48,7 @@
       width: 100%;
       padding: 0 20px;
       box-sizing: border-box;
+      z-index: 1; /* Ensure navigation buttons are above the model viewer */
     }
     .navigation button {
       background: rgba(255, 255, 255, 0.8);
@@ -64,8 +66,8 @@
 <body>
   <div class="ar-container">
     <div class="navigation">
-      <button id="prevButton">&#8249;</button>
-      <button id="nextButton">&#8250;</button>
+      <button onclick="prevModel()">&#8249;</button>
+      <button onclick="nextModel()">&#8250;</button>
     </div>
     <model-viewer 
       id="model-viewer"
@@ -129,10 +131,6 @@
     document.addEventListener('DOMContentLoaded', () => {
       checkARCoreCompatibility();
       updateModel();
-
-      // Bind event listeners to the navigation buttons
-      document.getElementById('prevButton').addEventListener('click', prevModel);
-      document.getElementById('nextButton').addEventListener('click', nextModel);
     });
   </script>
 </body>
