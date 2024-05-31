@@ -134,6 +134,21 @@
             object-fit: cover;
             opacity: 0.5;
         }
+
+        .description-field {
+            width: 100%;
+            max-width: 800px;
+            margin-top: 20px;
+            padding: 10px;
+            box-sizing: border-box;
+            background: rgba(0, 0, 0, 0.7);
+            border: 2px solid #00ffff;
+            border-radius: 10px;
+            color: #fff;
+            font-size: 1.2em;
+            resize: none;
+            font-family: 'Orbitron', sans-serif;
+        }
     </style>
     <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&display=swap" rel="stylesheet">
     <script type="module" src="https://unpkg.com/@google/model-viewer/dist/model-viewer.min.js"></script>
@@ -175,6 +190,8 @@
         <!-- Add surrealistic images or graphics here -->
     </div>
 
+    <textarea class="description-field" id="model-description" readonly></textarea>
+
     <script>
         async function checkARCoreCompatibility() {
             const modelViewer = document.getElementById('model-viewer');
@@ -187,44 +204,4 @@
                 const isARCoreSupported = await navigator.xr.isSessionSupported('immersive-ar');
                 if (!isARCoreSupported) {
                     modelViewer.removeAttribute('ar');
-                    modelViewer.removeAttribute('ar-modes');
-                    alert('Your device is not compatible with AR features. You can still view the 3D model.');
-                }
-            } catch (error) {
-                console.error('Error checking ARCore compatibility:', error);
-                alert('An error occurred while checking AR compatibility.');
-            }
-        }
-
-        const models = ['Model1.glb', 'Model2.glb', 'Model3.glb'];
-        const modelNames = ['Model 1', 'Model 2', 'Model 3'];
-        let currentIndex = 0;
-
-        function prevModel() {
-            currentIndex = (currentIndex - 1 + models.length) % models.length;
-            updateModel();
-        }
-
-        function nextModel() {
-            currentIndex = (currentIndex + 1) % models.length;
-            updateModel();
-        }
-
-        function updateModel() {
-            const modelViewer = document.getElementById('model-viewer');
-            if (!modelViewer) {
-                console.error("Model viewer not found.");
-                return;
-            }
-
-            const modelName = document.getElementById('model-name');
-            modelViewer.setAttribute('src', models[currentIndex]);
-            modelViewer.setAttribute('ios-src', modelNames[currentIndex] + '.usdz');
-            modelName.innerText = modelNames[currentIndex];
-        }
-
-        document.addEventListener('DOMContentLoaded', () => {
-            checkARCoreCompatibility();
-            updateModel();
-
-           
+                    modelViewer.removeAttribute('ar-m
