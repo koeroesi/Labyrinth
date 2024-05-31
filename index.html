@@ -3,115 +3,20 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>80s Game Style AR Model Viewer</title>
+    <title>Retro AR Model Viewer</title>
     <style>
-        body {
-            margin: 0;
-            padding: 0;
-            font-family: 'Roboto', sans-serif;
-            color: #fff;
-            background: linear-gradient(135deg, #ff0080, #8000ff);
-            overflow-x: hidden;
-        }
-
-        header {
-            text-align: center;
-            padding: 40px 20px;
-        }
-
-        header h1 {
-            font-size: 3em;
-            margin: 0;
-            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7);
-        }
-
-        header p {
-            font-size: 1.5em;
-            margin: 10px 0;
-            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7);
-        }
-
-        main {
-            text-align: center;
-            padding: 20px;
-        }
-
-        .ar-container {
-            position: relative;
-            width: 100%;
-            height: 70vh;
-            margin-bottom: 20px;
-            border: 4px solid #fff;
-            box-shadow: 0 0 20px rgba(255, 255, 255, 0.5);
-            background: linear-gradient(45deg, #ff0080, #8000ff);
-            cursor: pointer;
-        }
-
-        model-viewer {
-            width: 100%;
-            height: 100%;
-            transform: scale(0.9);
-        }
-
-        .ar-info {
-            position: absolute;
-            bottom: 10px;
-            width: 100%;
-            text-align: center;
-            background-color: rgba(0, 0, 0, 0.5);
-            padding: 10px;
-            box-sizing: border-box;
-        }
-
-        .ar-info h3 {
-            margin: 0;
-            font-size: 1.2em;
-            color: #ffcc00;
-            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7);
-        }
-
-        .description {
-            width: 100%;
-            max-width: 800px;
-            margin-bottom: 20px;
-            padding: 20px;
-            background: rgba(0, 0, 0, 0.5);
-            box-shadow: 0 0 20px rgba(255, 255, 255, 0.5);
-            display: none;
-        }
-
-        .description h2 {
-            font-size: 1.5em;
-            margin: 0 0 10px;
-        }
-
-        .description p {
-            font-size: 1em;
-            line-height: 1.5;
-            margin: 0;
-        }
-
-        footer {
-            text-align: center;
-            padding: 20px;
-        }
-
-        footer p {
-            margin: 0;
-            font-size: 0.8em;
-            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7);
-        }
+        /* Minified and combined CSS rules */
+        body{margin:0;padding:0;font-family:'Roboto',sans-serif;background-color:#f0f0f0;color:#333}.container{max-width:800px;margin:0 auto;padding:20px}.header{text-align:center;margin-bottom:20px}.title{font-size:2em;margin:0}.subtitle{font-size:1.2em;margin:0}.ar-container{position:relative;background:#fff;border-radius:8px;box-shadow:0 2px 4px rgba(0,0,0,0.1);overflow:hidden}.ar-container model-viewer{width:100%;height:400px}.model-info{text-align:center;padding:10px;background-color:#fff}.navigation{text-align:center;margin-top:20px}.navigation button{background-color:#ff0080;color:#fff;border:none;border-radius:4px;padding:10px 20px;font-size:1em;cursor:pointer;transition:background-color 0.3s}.navigation button:hover{background-color:#d6006f}.footer{text-align:center;padding:20px;background-color:#333;color:#fff;border-radius:8px}
     </style>
-    <script type="module" src="https://unpkg.com/@google/model-viewer/dist/model-viewer.min.js"></script>
 </head>
 <body>
-    <header>
-        <h1>Make it through the Labyrinth</h1>
-        <p>Retro Gaming Style</p>
-    </header>
+    <div class="container">
+        <div class="header">
+            <h1 class="title">Retro AR Model Viewer</h1>
+            <p class="subtitle">Experience the 80s Gaming Style</p>
+        </div>
 
-    <main>
-        <div class="ar-container" onclick="toggleDescription()">
+        <div class="ar-container">
             <model-viewer 
                 id="model-viewer"
                 alt="Lab1"
@@ -123,51 +28,25 @@
                 animation-name="CubeAction" 
                 animation-loop>
             </model-viewer>
-            <div class="ar-info">
+            <div class="model-info">
                 <h3 id="model-name">Lab1</h3>
             </div>
         </div>
 
-        <div class="description">
-            <h2>Description</h2>
-            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed vel urna vel est vehicula maximus.</p>
+        <div class="navigation">
+            <button id="prevButton">Previous Model</button>
+            <button id="nextButton">Next Model</button>
         </div>
-    </main>
+    </div>
 
-    <footer>
-        <p>&copy; 2024 Retro Labyrinth AR Viewer. All rights reserved.</p>
-    </footer>
+    <div class="footer">
+        &copy; 2024 Retro Labyrinth AR Viewer. All rights reserved.
+    </div>
 
     <script>
-        async function checkARCoreCompatibility() {
-            const modelViewer = document.getElementById('model-viewer');
-            if (!modelViewer) {
-                console.error("Model viewer not found.");
-                return;
-            }
-
-            try {
-                const isARCoreSupported = await navigator.xr.isSessionSupported('immersive-ar');
-                if (!isARCoreSupported) {
-                    modelViewer.removeAttribute('ar');
-                    modelViewer.removeAttribute('ar-modes');
-                    alert('Your device is not compatible with AR features. You can still view the 3D model.');
-                }
-            } catch (error) {
-                console.error('Error checking ARCore compatibility:', error);
-                alert('An error occurred while checking AR compatibility.');
-            }
-        }
-
         const models = ['Lab1.glb', 'Lab2.glb', 'Lab3.glb'];
-        const usdzModels = ['Lab1.usdz', 'Lab2.usdz', 'Lab3.usdz'];
         const modelNames = ['Lab1', 'Lab2', 'Lab3'];
         let currentIndex = 0;
-
-        function toggleDescription() {
-            const description = document.querySelector('.description');
-            description.style.display = description.style.display === 'none' ? 'block' : 'none';
-        }
 
         function prevModel() {
             currentIndex = (currentIndex - 1 + models.length) % models.length;
@@ -188,17 +67,17 @@
 
             const modelName = document.getElementById('model-name');
             modelViewer.setAttribute('src', models[currentIndex]);
-            modelViewer.setAttribute('ios-src', usdzModels[currentIndex]);
+            modelViewer.setAttribute('ios-src', modelNames[currentIndex] + '.usdz');
             modelName.innerText = modelNames[currentIndex];
         }
 
         document.addEventListener('DOMContentLoaded', () => {
-            checkARCoreCompatibility();
             updateModel();
 
             document.getElementById('prevButton').addEventListener('click', prevModel);
             document.getElementById('nextButton').addEventListener('click', nextModel);
         });
     </script>
+    <script async src="https://unpkg.com/@google/model-viewer/dist/model-viewer.min.js"></script>
 </body>
 </html>
