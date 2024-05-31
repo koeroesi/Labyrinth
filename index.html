@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Cyberpunk AR Model Viewer</title>
+    <title>80s Game Style AR Model Viewer</title>
     <style>
         body {
             margin: 0;
@@ -13,26 +13,45 @@
             flex-direction: column;
             align-items: center;
             justify-content: center;
-            background: linear-gradient(135deg, #2d00ff, #8000ff);
-            font-family: 'Orbitron', sans-serif;
-            color: #fff;
+            background: linear-gradient(135deg, #ff0080, #8000ff);
+            font-family: 'Press Start 2P', cursive;
+            color: white;
+            text-shadow: 
+                0 0 5px #fff, 
+                0 0 10px #fff, 
+                0 0 15px #ff0080, 
+                0 0 20px #ff0080, 
+                0 0 25px #ff0080,
+                0 0 30px #ff0080,
+                0 0 35px #ff0080;
         }
 
         header, main, footer {
             width: 100%;
             text-align: center;
-            padding: 20px;
+            padding: 10px;
             box-sizing: border-box;
         }
 
         header {
-            background: rgba(0, 0, 0, 0.8);
+            background: rgba(0, 0, 0, 0.5);
+            padding: 20px;
         }
 
         header h1, header p {
+            text-shadow: 
+                0 0 5px #fff, 
+                0 0 10px #fff, 
+                0 0 15px #ff0080, 
+                0 0 20px #ff0080, 
+                0 0 25px #ff0080,
+                0 0 30px #ff0080,
+                0 0 35px #ff0080;
+        }
+
+        header h1 {
             font-size: 2.5em;
             margin: 0;
-            text-shadow: 0 0 10px #00ffff, 0 0 20px #00ffff, 0 0 30px #00ffff;
         }
 
         header p {
@@ -55,9 +74,9 @@
             display: flex;
             justify-content: center;
             align-items: center;
-            border: 4px solid #00ffff;
-            box-shadow: 0 0 20px #00ffff;
-            background: rgba(0, 0, 0, 0.5);
+            border: 4px solid #fff;
+            box-shadow: 0 0 20px #fff;
+            background: rgba(0, 0, 0, 0.3);
         }
 
         model-viewer {
@@ -93,70 +112,34 @@
         }
 
         .navigation button {
-            background: rgba(0, 255, 0, 0.8);
-            border: 2px solid #00ffff;
+            background: rgba(255, 255, 255, 0.8);
+            border: 2px solid #ccc;
             border-radius: 5px;
             cursor: pointer;
             padding: 10px;
             font-size: 16px;
             transition: background 0.3s ease;
-            font-family: 'Orbitron', sans-serif;
+            font-family: 'Press Start 2P', cursive;
             color: #000;
         }
 
         .navigation button:hover {
-            background: rgba(0, 255, 0, 1);
+            background: rgba(255, 255, 255, 1);
         }
 
         footer {
-            background: rgba(0, 0, 0, 0.8);
+            background: rgba(0, 0, 0, 0.5);
             padding: 10px;
             font-size: 1em;
             color: #ffcc00;
         }
-
-        .surreal-elements {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            pointer-events: none;
-            z-index: -1;
-        }
-
-        .surreal-elements img {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            opacity: 0.5;
-        }
-
-        .description-field {
-            width: 100%;
-            max-width: 800px;
-            margin-top: 20px;
-            padding: 10px;
-            box-sizing: border-box;
-            background: rgba(0, 0, 0, 0.7);
-            border: 2px solid #00ffff;
-            border-radius: 10px;
-            color: #fff;
-            font-size: 1.2em;
-            resize: none;
-            font-family: 'Orbitron', sans-serif;
-        }
     </style>
-    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&display=swap" rel="stylesheet">
     <script type="module" src="https://unpkg.com/@google/model-viewer/dist/model-viewer.min.js"></script>
 </head>
 <body>
     <header>
-        <h1>Cyber AR Experience</h1>
-        <p>Futuristic Model Viewer</p>
+        <h1>Make it through the Labyrinth</h1>
+        <p>Retro Gaming Style</p>
     </header>
 
     <main>
@@ -167,7 +150,7 @@
             </div>
             <model-viewer 
                 id="model-viewer"
-                alt="Model"
+                alt="Lab1"
                 ar
                 ar-modes="webxr scene-viewer quick-look" 
                 environment-image="neutral" 
@@ -177,20 +160,14 @@
                 animation-loop>
             </model-viewer>
             <div class="ar-info">
-                <h3 id="model-name">Model</h3>
+                <h3 id="model-name">Lab1</h3>
             </div>
         </div>
     </main>
 
     <footer>
-        &copy; 2024 Cyber AR Experience. All rights reserved.
+        &copy; 2024 Retro Labyrinth AR Viewer. All rights reserved.
     </footer>
-
-    <div class="surreal-elements">
-        <!-- Add surrealistic images or graphics here -->
-    </div>
-
-    <textarea class="description-field" id="model-description" readonly></textarea>
 
     <script>
         async function checkARCoreCompatibility() {
@@ -204,4 +181,40 @@
                 const isARCoreSupported = await navigator.xr.isSessionSupported('immersive-ar');
                 if (!isARCoreSupported) {
                     modelViewer.removeAttribute('ar');
-                    modelViewer.removeAttribute('ar-m
+                    modelViewer.removeAttribute('ar-modes');
+                    alert('Your device is not compatible with AR features. You can still view the 3D model.');
+                }
+            } catch (error) {
+                console.error('Error checking ARCore compatibility:', error);
+                alert('An error occurred while checking AR compatibility.');
+            }
+        }
+
+        const models = ['Lab1.glb', 'Lab2.glb', 'Lab3.glb'];
+        const modelNames = ['Lab1', 'Lab2', 'Lab3'];
+        let currentIndex = 0;
+
+        function prevModel() {
+            currentIndex = (currentIndex - 1 + models.length) % models.length;
+            updateModel();
+        }
+
+        function nextModel() {
+            currentIndex = (currentIndex + 1) % models.length;
+            updateModel();
+        }
+
+        function updateModel() {
+            const modelViewer = document.getElementById('model-viewer');
+            if (!modelViewer) {
+                console.error("Model viewer not found.");
+                return;
+            }
+
+            const modelName = document.getElementById('model-name');
+            modelViewer.setAttribute('src', models[currentIndex]);
+            modelName.innerText = modelNames[currentIndex];
+        }
+
+        document.getElementById('prevButton').addEventListener('click', prevModel);
+        document.getElementById('nextButton').addEventListener('click',
