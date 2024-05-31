@@ -134,21 +134,6 @@
             object-fit: cover;
             opacity: 0.5;
         }
-
-        .description-field {
-            width: 100%;
-            max-width: 800px;
-            margin-top: 20px;
-            padding: 10px;
-            box-sizing: border-box;
-            background: rgba(0, 0, 0, 0.7);
-            border: 2px solid #00ffff;
-            border-radius: 10px;
-            color: #fff;
-            font-size: 1.2em;
-            resize: none;
-            font-family: 'Orbitron', sans-serif;
-        }
     </style>
     <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&display=swap" rel="stylesheet">
     <script type="module" src="https://unpkg.com/@google/model-viewer/dist/model-viewer.min.js"></script>
@@ -180,7 +165,6 @@
                 <h3 id="model-name">Model</h3>
             </div>
         </div>
-        <textarea class="description-field" id="model-description" readonly></textarea>
     </main>
 
     <footer>
@@ -214,8 +198,33 @@
 
         const models = ['Model1.glb', 'Model2.glb', 'Model3.glb'];
         const modelNames = ['Model 1', 'Model 2', 'Model 3'];
-        const modelDescriptions = [
-            'Description for Model 1',
-            'Description for Model 2',
-            'Description for Model 3'
-       
+        let currentIndex = 0;
+
+        function prevModel() {
+            currentIndex = (currentIndex - 1 + models.length) % models.length;
+            updateModel();
+        }
+
+        function nextModel() {
+            currentIndex = (currentIndex + 1) % models.length;
+            updateModel();
+        }
+
+        function updateModel() {
+            const modelViewer = document.getElementById('model-viewer');
+            if (!modelViewer) {
+                console.error("Model viewer not found.");
+                return;
+            }
+
+            const modelName = document.getElementById('model-name');
+            modelViewer.setAttribute('src', models[currentIndex]);
+            modelViewer.setAttribute('ios-src', modelNames[currentIndex] + '.usdz');
+            modelName.innerText = modelNames[currentIndex];
+        }
+
+        document.addEventListener('DOMContentLoaded', () => {
+            checkARCoreCompatibility();
+            updateModel();
+
+           
