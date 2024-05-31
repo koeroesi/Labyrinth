@@ -1,83 +1,56 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Retro AR Model Viewer</title>
-    <style>
-        /* Minified and combined CSS rules */
-        body{margin:0;padding:0;font-family:'Roboto',sans-serif;background-color:#f0f0f0;color:#333}.container{max-width:800px;margin:0 auto;padding:20px}.header{text-align:center;margin-bottom:20px}.title{font-size:2em;margin:0}.subtitle{font-size:1.2em;margin:0}.ar-container{position:relative;background:#fff;border-radius:8px;box-shadow:0 2px 4px rgba(0,0,0,0.1);overflow:hidden}.ar-container model-viewer{width:100%;height:400px}.model-info{text-align:center;padding:10px;background-color:#fff}.navigation{text-align:center;margin-top:20px}.navigation button{background-color:#ff0080;color:#fff;border:none;border-radius:4px;padding:10px 20px;font-size:1em;cursor:pointer;transition:background-color 0.3s}.navigation button:hover{background-color:#d6006f}.footer{text-align:center;padding:20px;background-color:#333;color:#fff;border-radius:8px}
-    </style>
-</head>
-<body>
-    <div class="container">
-        <div class="header">
-            <h1 class="title">Retro AR Model Viewer</h1>
-            <p class="subtitle">Experience the 80s Gaming Style</p>
-        </div>
-
-        <div class="ar-container">
-            <model-viewer 
-                id="model-viewer"
-                alt="Lab1"
-                ar
-                ar-modes="webxr scene-viewer quick-look" 
-                environment-image="neutral" 
-                auto-rotate
-                camera-controls
-                animation-name="CubeAction" 
-                animation-loop>
-            </model-viewer>
-            <div class="model-info">
-                <h3 id="model-name">Lab1</h3>
-            </div>
-        </div>
-
-        <div class="navigation">
-            <button id="prevButton">Previous Model</button>
-            <button id="nextButton">Next Model</button>
-        </div>
-    </div>
-
-    <div class="footer">
-        &copy; 2024 Retro Labyrinth AR Viewer. All rights reserved.
-    </div>
-
-    <script>
-        const models = ['Lab1.glb', 'Lab2.glb', 'Lab3.glb'];
-        const modelNames = ['Lab1', 'Lab2', 'Lab3'];
-        let currentIndex = 0;
-
-        function prevModel() {
-            currentIndex = (currentIndex - 1 + models.length) % models.length;
-            updateModel();
+<script>
+    async function checkARCoreCompatibility() {
+        const modelViewer = document.getElementById('model-viewer');
+        if (!modelViewer) {
+            console.error("Model viewer not found.");
+            return;
         }
 
-        function nextModel() {
-            currentIndex = (currentIndex + 1) % models.length;
-            updateModel();
-        }
-
-        function updateModel() {
-            const modelViewer = document.getElementById('model-viewer');
-            if (!modelViewer) {
-                console.error("Model viewer not found.");
-                return;
+        try {
+            const isARCoreSupported = await navigator.xr.isSessionSupported('immersive-ar');
+            if (!isARCoreSupported) {
+                modelViewer.removeAttribute('ar');
+                modelViewer.removeAttribute('ar-modes');
+                alert('Your device is not compatible with AR features. You can still view the 3D model.');
             }
+        } catch (error) {
+            console.error('Error checking ARCore compatibility:', error);
+            alert('An error occurred while checking AR compatibility.');
+        }
+    }
 
-            const modelName = document.getElementById('model-name');
-            modelViewer.setAttribute('src', models[currentIndex]);
-            modelViewer.setAttribute('ios-src', modelNames[currentIndex] + '.usdz');
-            modelName.innerText = modelNames[currentIndex];
+    const models = ['Lab1.glb', 'Lab2.glb', 'Lab3.glb'];
+    const modelNames = ['Lab1', 'Lab2', 'Lab3'];
+    let currentIndex = 0;
+
+    function prevModel() {
+        currentIndex = (currentIndex - 1 + models.length) % models.length;
+        updateModel();
+    }
+
+    function nextModel() {
+        currentIndex = (currentIndex + 1) % models.length;
+        updateModel();
+    }
+
+    function updateModel() {
+        const modelViewer = document.getElementById('model-viewer');
+        if (!modelViewer) {
+            console.error("Model viewer not found.");
+            return;
         }
 
-        document.addEventListener('DOMContentLoaded', () => {
-            updateModel();
+        const modelName = document.getElementById('model-name');
+        modelViewer.setAttribute('src', models[currentIndex]);
+        modelViewer.setAttribute('ios-src', modelNames[currentIndex] + '.usdz');
+        modelName.innerText = modelNames[currentIndex];
+    }
 
-            document.getElementById('prevButton').addEventListener('click', prevModel);
-            document.getElementById('nextButton').addEventListener('click', nextModel);
-        });
-    </script>
-    <script async src="https://unpkg.com/@google/model-viewer/dist/model-viewer.min.js"></script>
-</body>
-</html>
+    document.addEventListener('DOMContentLoaded', () => {
+        checkARCoreCompatibility();
+        updateModel();
+
+        document.getElementById('prevButton').addEventListener('click', prevModel);
+        document.getElementById('nextButton').addEventListener('click', nextModel);
+    });
+</script>
