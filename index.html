@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AR Model Viewer</title>
+  <script type="module" src="https://unpkg.com/@google/model-viewer/dist/model-viewer.min.js"></script>
+  <style>
+    body {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      margin: 0;
+      height: 100vh;
+      background: #f0f0f0;
+      background-image: url('maze-background.svg'); /* Use an SVG background image */
+      background-size: cover;
+    }
+    .ar-container {
+      position: relative;
+      width: 100%;
+      height: 80vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+    model-viewer {
+      width: 100%; /* 100% of the parent's width */
+      height: 100%; /* 100% of the parent's height */
+    }
+    .ar-info {
+      position: absolute;
+      bottom: 10px;
+      width: 100%;
+      text-align: center;
+    }
+    .ar-info h3 {
+      margin: 0;
+      font-size: 18px;
+    }
+    .navigation {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      display: flex;
+      justify-content: space-between;
+      width: 100%;
+      padding: 0 20px;
+      box-sizing: border-box;
+    }
+    .navigation button {
+      background: rgba(255, 255, 255, 0.8);
+      border: 1px solid #ccc;
+      border-radius: 5px;
+      cursor: pointer;
+      padding: 10px;
+      font-size: 16px;
+    }
+    .navigation button:hover {
+      background: rgba(255, 255, 255, 1);
+    }
+  </style>
+</head>
+<body>
+  <div class="ar-container">
+    <div class="navigation">
+      <button onclick="prevModel()">&#8249;</button>
+      <button onclick="nextModel()">&#8250;</button>
+    </div>
+    <model-viewer 
+      id="model-viewer"
+      alt="Lab1"
+      ar
+      ar-modes="webxr scene-viewer quick-look" 
+      environment-image="neutral" 
+      auto-rotate
+      camera-controls
+      animation-name="CubeAction" 
+      animation-loop>
+    </model-viewer>
+    <div class="ar-info">
+      <h3 id="model-name">Lab1</h3>
+    </div>
+  </div>
+
+  <script>
+    async function checkARCoreCompatibility() {
+      const modelViewer = document.getElementById('model-viewer');
+      if (!modelViewer) {
+        console.error("Model viewer not found.");
+        return;
+      }
+
+      const isARCoreSupported = await navigator.xr.isSessionSupported('immersive-ar');
+      if (!isARCoreSupported) {
+        modelViewer.removeAttribute('ar');
+        modelViewer.removeAttribute('ar-modes');
+        alert('Your device is not compatible with AR features. You can still view the 3D model.');
+      }
+    }
+
+    const models = ['Lab1.glb', 'Lab2.glb', 'Lab3.glb']; // Add more model URLs here
+    const modelNames = ['Lab1', 'Lab2', 'Lab3']; // Add corresponding model names here
+    let currentIndex = 0;
+
+    function prevModel() {
+      currentIndex = (currentIndex - 1 + models.length) % models.length;
+      updateModel();
+    }
+
+    function nextModel() {
+      currentIndex = (currentIndex + 1) % models.length;
+      updateModel();
+    }
+
+    function updateModel() {
+      const modelViewer = document.getElementById('model-viewer');
+      if (!modelViewer) {
+        console.error("Model viewer not found.");
+        return;
+      }
+
+      const modelName = document.getElementById('model-name');
+      modelViewer.setAttribute('src', models[currentIndex]);
+      modelViewer.setAttribute('ios-src', modelNames[currentIndex] + '.usdz');
+      modelName.innerText = modelNames[currentIndex];
+    }
+
+    document.addEventListener('DOMContentLoaded', () => {
+      checkARCoreCompatibility();
+      updateModel();
+    });
+  </script>
+</body>
+</html>
