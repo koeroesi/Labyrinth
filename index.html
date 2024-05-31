@@ -8,67 +8,43 @@
         body {
             margin: 0;
             padding: 0;
-            height: 100vh;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            background: linear-gradient(135deg, #ff0080, #8000ff);
             font-family: 'Roboto', sans-serif;
-            color: white;
-        }
-
-        header, main, footer {
-            width: 100%;
-            text-align: center;
-            padding: 10px;
-            box-sizing: border-box;
+            color: #fff;
+            background: linear-gradient(135deg, #ff0080, #8000ff);
+            overflow-x: hidden;
         }
 
         header {
-            background: rgba(0, 0, 0, 0.5);
-            padding: 20px;
-        }
-
-        header h1, header p {
-            text-shadow: 
-                0 0 5px #fff, 
-                0 0 10px #fff, 
-                0 0 15px #ff0080, 
-                0 0 20px #ff0080, 
-                0 0 25px #ff0080,
-                0 0 30px #ff0080,
-                0 0 35px #ff0080;
+            text-align: center;
+            padding: 40px 20px;
         }
 
         header h1 {
-            font-size: 2.5em;
+            font-size: 3em;
             margin: 0;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7);
         }
 
         header p {
             font-size: 1.5em;
+            margin: 10px 0;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7);
         }
 
         main {
-            flex: 1;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
+            text-align: center;
+            padding: 20px;
         }
 
         .ar-container {
             position: relative;
             width: 100%;
-            max-width: 800px;
             height: 70vh;
-            display: flex;
-            justify-content: center;
-            align-items: center;
+            margin-bottom: 20px;
             border: 4px solid #fff;
-            box-shadow: 0 0 20px #fff;
-            background: rgba(0, 0, 0, 0.3);
+            box-shadow: 0 0 20px rgba(255, 255, 255, 0.5);
+            background: linear-gradient(45deg, #ff0080, #8000ff);
+            cursor: pointer;
         }
 
         model-viewer {
@@ -82,48 +58,48 @@
             bottom: 10px;
             width: 100%;
             text-align: center;
+            background-color: rgba(0, 0, 0, 0.5);
+            padding: 10px;
+            box-sizing: border-box;
         }
 
         .ar-info h3 {
             margin: 0;
             font-size: 1.2em;
             color: #ffcc00;
-            text-shadow: none;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7);
         }
 
-        .navigation {
-            position: absolute;
-            top: 50%;
-            transform: translateY(-50%);
-            display: flex;
-            justify-content: space-between;
+        .description {
             width: 100%;
-            padding: 0 20px;
-            box-sizing: border-box;
-            z-index: 1;
+            max-width: 800px;
+            margin-bottom: 20px;
+            padding: 20px;
+            background: rgba(0, 0, 0, 0.5);
+            box-shadow: 0 0 20px rgba(255, 255, 255, 0.5);
+            display: none;
         }
 
-        .navigation button {
-            background: rgba(255, 255, 255, 0.8);
-            border: 2px solid #ccc;
-            border-radius: 5px;
-            cursor: pointer;
-            padding: 10px;
-            font-size: 16px;
-            transition: background 0.3s ease;
-            font-family: 'Roboto', sans-serif;
-            color: #000;
+        .description h2 {
+            font-size: 1.5em;
+            margin: 0 0 10px;
         }
 
-        .navigation button:hover {
-            background: rgba(255, 255, 255, 1);
+        .description p {
+            font-size: 1em;
+            line-height: 1.5;
+            margin: 0;
         }
 
         footer {
-            background: rgba(0, 0, 0, 0.5);
-            padding: 10px;
-            font-size: 1em;
-            color: #ffcc00;
+            text-align: center;
+            padding: 20px;
+        }
+
+        footer p {
+            margin: 0;
+            font-size: 0.8em;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7);
         }
     </style>
     <script type="module" src="https://unpkg.com/@google/model-viewer/dist/model-viewer.min.js"></script>
@@ -135,11 +111,7 @@
     </header>
 
     <main>
-        <div class="ar-container">
-            <div class="navigation">
-                <button id="prevButton" aria-label="Previous Model">&#8249;</button>
-                <button id="nextButton" aria-label="Next Model">&#8250;</button>
-            </div>
+        <div class="ar-container" onclick="toggleDescription()">
             <model-viewer 
                 id="model-viewer"
                 alt="Lab1"
@@ -155,10 +127,15 @@
                 <h3 id="model-name">Lab1</h3>
             </div>
         </div>
+
+        <div class="description">
+            <h2>Description</h2>
+            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed vel urna vel est vehicula maximus.</p>
+        </div>
     </main>
 
     <footer>
-        &copy; 2024 Retro Labyrinth AR Viewer. All rights reserved.
+        <p>&copy; 2024 Retro Labyrinth AR Viewer. All rights reserved.</p>
     </footer>
 
     <script>
@@ -183,8 +160,14 @@
         }
 
         const models = ['Lab1.glb', 'Lab2.glb', 'Lab3.glb'];
+        const usdzModels = ['Lab1.usdz', 'Lab2.usdz', 'Lab3.usdz'];
         const modelNames = ['Lab1', 'Lab2', 'Lab3'];
         let currentIndex = 0;
+
+        function toggleDescription() {
+            const description = document.querySelector('.description');
+            description.style.display = description.style.display === 'none' ? 'block' : 'none';
+        }
 
         function prevModel() {
             currentIndex = (currentIndex - 1 + models.length) % models.length;
@@ -205,7 +188,7 @@
 
             const modelName = document.getElementById('model-name');
             modelViewer.setAttribute('src', models[currentIndex]);
-            modelViewer.setAttribute('ios-src', modelNames[currentIndex] + '.usdz');
+            modelViewer.setAttribute('ios-src', usdzModels[currentIndex]);
             modelName.innerText = modelNames[currentIndex];
         }
 
