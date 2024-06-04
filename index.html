@@ -13,7 +13,9 @@
             flex-direction: column;
             align-items: center;
             justify-content: center;
-            background: linear-gradient(135deg, #ff0080, #8000ff);
+            background: linear-gradient(135deg, #ff0080, #8000ff), url('2d-maze-unisex-two-tone-hoodie.jpg');
+            background-size: cover;
+            background-blend-mode: overlay;
             font-family: 'Roboto', sans-serif;
             color: white;
         }
@@ -149,7 +151,8 @@
                 auto-rotate
                 camera-controls
                 animation-name="CubeAction" 
-                animation-loop>
+                animation-loop
+                loading="lazy">
             </model-viewer>
             <div class="ar-info">
                 <h3 id="model-name">Lab1</h3>
@@ -219,4 +222,3 @@
     </script>
 </body>
 </html>
-
