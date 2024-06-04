@@ -143,11 +143,15 @@
             <model-viewer 
                 id="model-viewer"
                 alt="Lab1"
+                src="Lab1.glb"
+                ios-src="Lab1.usdz"
                 ar
                 ar-modes="webxr scene-viewer quick-look" 
                 environment-image="neutral" 
                 auto-rotate
                 camera-controls
+                camera-orbit="0deg 90deg 2m"   <!-- Adjust camera-orbit as needed -->
+                camera-target="0m 0m 0m"       <!-- Adjust camera-target as needed -->
                 animation-name="CubeAction" 
                 animation-loop>
             </model-viewer>
@@ -169,16 +173,22 @@
                 return;
             }
 
-            try {
-                const isARCoreSupported = await navigator.xr.isSessionSupported('immersive-ar');
-                if (!isARCoreSupported) {
-                    modelViewer.removeAttribute('ar');
-                    modelViewer.removeAttribute('ar-modes');
-                    alert('Your device is not compatible with AR features. You can still view the 3D model.');
+            if (navigator.xr) {
+                try {
+                    const isARCoreSupported = await navigator.xr.isSessionSupported('immersive-ar');
+                    if (!isARCoreSupported) {
+                        modelViewer.removeAttribute('ar');
+                        modelViewer.removeAttribute('ar-modes');
+                        alert('Your device is not compatible with AR features. You can still view the 3D model.');
+                    }
+                } catch (error) {
+                    console.error('Error checking ARCore compatibility:', error);
+                    alert('An error occurred while checking AR compatibility.');
                 }
-            } catch (error) {
-                console.error('Error checking ARCore compatibility:', error);
-                alert('An error occurred while checking AR compatibility.');
+            } else {
+                modelViewer.removeAttribute('ar');
+                modelViewer.removeAttribute('ar-modes');
+                alert('Your device does not support AR.');
             }
         }
 
@@ -207,6 +217,15 @@
             modelViewer.setAttribute('src', models[currentIndex]);
             modelViewer.setAttribute('ios-src', modelNames[currentIndex] + '.usdz');
             modelName.innerText = modelNames[currentIndex];
+
+            modelViewer.addEventListener('load', () => {
+                console.log(`Model ${models[currentIndex]} loaded successfully.`);
+            });
+
+            modelViewer.addEventListener('error', (event) => {
+                console.error('Error loading model:', event.detail);
+                alert(`Failed to load model: ${models[currentIndex]}`);
+            });
         }
 
         document.addEventListener('DOMContentLoaded', () => {
@@ -218,4 +237,4 @@
         });
     </script>
 </body>
-</html>  the ar objects o longer show up like in this version of the code
+</html>
