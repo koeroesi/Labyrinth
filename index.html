@@ -172,20 +172,7 @@
             if (!modelViewer) {
                 console.error("Model viewer not found.");
                 return;
-            }
-
-            try {
-                const isARCoreSupported = await navigator.xr.isSessionSupported('immersive-ar');
-                if (!isARCoreSupported) {
-                    modelViewer.removeAttribute('ar');
-                    modelViewer.removeAttribute('ar-modes');
-                    alert('Your device is not compatible with AR features. You can still view the 3D model.');
-                }
-            } catch (error) {
-                console.error('Error checking ARCore compatibility:', error);
-                alert('An error occurred while checking AR compatibility.');
-            }
-        }
+        
 
         const models = ['Lab1.glb', 'Lab2.glb', 'Lab3.glb'];
         const modelNames = ['Lab1', 'Lab2', 'Lab3'];
