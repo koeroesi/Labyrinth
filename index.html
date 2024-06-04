@@ -169,16 +169,22 @@
                 return;
             }
 
-            try {
-                const isARCoreSupported = await navigator.xr.isSessionSupported('immersive-ar');
-                if (!isARCoreSupported) {
-                    modelViewer.removeAttribute('ar');
-                    modelViewer.removeAttribute('ar-modes');
-                    alert('Your device is not compatible with AR features. You can still view the 3D model.');
+            if (navigator.xr) {
+                try {
+                    const isARCoreSupported = await navigator.xr.isSessionSupported('immersive-ar');
+                    if (!isARCoreSupported) {
+                        modelViewer.removeAttribute('ar');
+                        modelViewer.removeAttribute('ar-modes');
+                        alert('Your device is not compatible with AR features. You can still view the 3D model.');
+                    }
+                } catch (error) {
+                    console.error('Error checking ARCore compatibility:', error);
+                    alert('An error occurred while checking AR compatibility.');
                 }
-            } catch (error) {
-                console.error('Error checking ARCore compatibility:', error);
-                alert('An error occurred while checking AR compatibility.');
+            } else {
+                modelViewer.removeAttribute('ar');
+                modelViewer.removeAttribute('ar-modes');
+                alert('Your device does not support AR.');
             }
         }
 
@@ -218,4 +224,4 @@
         });
     </script>
 </body>
-</html>  the ar objects o longer show up like in this version of the code
+</html>
