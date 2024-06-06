@@ -133,7 +133,7 @@
 <body>
     <header>
         <h1>Labyrinth Run</h1>
-        <p>Choose a Level, open the Ar Model and try to solve it! </p>
+        <p>Choose a Level, open the AR Model and try to solve it!</p>
     </header>
 
     <main>
@@ -152,7 +152,8 @@
                 camera-controls
                 animation-name="CubeAction" 
                 animation-loop
-                loading="lazy">
+                loading="lazy"
+                rotation="0 0 0">
             </model-viewer>
             <div class="ar-info">
                 <h3 id="model-name">Lab1</h3>
@@ -181,7 +182,6 @@
                 }
             } catch (error) {
                 console.error('Error checking ARCore compatibility:', error);
-                
             }
         }
 
@@ -210,6 +210,12 @@
             modelViewer.setAttribute('src', models[currentIndex]);
             modelViewer.setAttribute('ios-src', modelNames[currentIndex] + '.usdz');
             modelName.innerText = modelNames[currentIndex];
+
+            if (modelNames[currentIndex] === 'Lab2') {
+                modelViewer.setAttribute('rotation', '0 0 3.351'); // 192 degrees around the Z axis
+            } else {
+                modelViewer.setAttribute('rotation', '0 0 0');
+            }
         }
 
         document.addEventListener('DOMContentLoaded', () => {
