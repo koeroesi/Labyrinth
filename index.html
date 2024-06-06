@@ -133,7 +133,7 @@
 <body>
     <header>
         <h1>Labyrinth Run</h1>
-        <p>Choose a Level, open the AR Model and try to solve it!</p>
+        <p>Choose a Level, open the Ar Model and try to solve it! </p>
     </header>
 
     <main>
@@ -152,8 +152,7 @@
                 camera-controls
                 animation-name="CubeAction" 
                 animation-loop
-                loading="lazy"
-                rotation="0 0 0">
+                loading="lazy">
             </model-viewer>
             <div class="ar-info">
                 <h3 id="model-name">Lab1</h3>
@@ -182,6 +181,7 @@
                 }
             } catch (error) {
                 console.error('Error checking ARCore compatibility:', error);
+                
             }
         }
 
@@ -212,28 +212,14 @@
             modelName.innerText = modelNames[currentIndex];
         }
 
-        function onARStatus(event) {
-            const modelViewer = document.getElementById('model-viewer');
-            if (!modelViewer) {
-                console.error("Model viewer not found.");
-                return;
-            }
-
-            if (event.detail.status === 'session-started' && modelNames[currentIndex] === 'Lab2') {
-                modelViewer.setAttribute('rotation', '0 0 3.351'); // 192 degrees around the Z axis
-            }
-        }
-
         document.addEventListener('DOMContentLoaded', () => {
             checkARCoreCompatibility();
             updateModel();
-
-            const modelViewer = document.getElementById('model-viewer');
-            modelViewer.addEventListener('ar-status', onARStatus);
 
             document.getElementById('prevButton').addEventListener('click', prevModel);
             document.getElementById('nextButton').addEventListener('click', nextModel);
         });
     </script>
 </body>
-</html>
+</html> give me an option to control the rotation of the ar objects in the code 
+ChatGPT
