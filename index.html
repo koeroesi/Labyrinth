@@ -210,17 +210,26 @@
             modelViewer.setAttribute('src', models[currentIndex]);
             modelViewer.setAttribute('ios-src', modelNames[currentIndex] + '.usdz');
             modelName.innerText = modelNames[currentIndex];
+        }
 
-            if (modelNames[currentIndex] === 'Lab2') {
+        function onARStatus(event) {
+            const modelViewer = document.getElementById('model-viewer');
+            if (!modelViewer) {
+                console.error("Model viewer not found.");
+                return;
+            }
+
+            if (event.detail.status === 'session-started' && modelNames[currentIndex] === 'Lab2') {
                 modelViewer.setAttribute('rotation', '0 0 3.351'); // 192 degrees around the Z axis
-            } else {
-                modelViewer.setAttribute('rotation', '0 0 0');
             }
         }
 
         document.addEventListener('DOMContentLoaded', () => {
             checkARCoreCompatibility();
             updateModel();
+
+            const modelViewer = document.getElementById('model-viewer');
+            modelViewer.addEventListener('ar-status', onARStatus);
 
             document.getElementById('prevButton').addEventListener('click', prevModel);
             document.getElementById('nextButton').addEventListener('click', nextModel);
