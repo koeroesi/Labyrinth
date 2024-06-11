@@ -26,7 +26,7 @@
             flex-direction: column;
             align-items: center;
             justify-content: center;
-            background: linear-gradient(135deg, #ff0080, #8000ff), url('2d-maze-unisex-two-tone-hoodie.jpg');
+            background: linear-gradient(135deg, #ff0080, #8000ff) fixed, url('2d-maze-unisex-two-tone-hoodie.jpg') no-repeat fixed;
             background-size: cover;
             background-blend-mode: overlay;
             font-family: 'Roboto', sans-serif;
@@ -41,14 +41,13 @@
         }
 
         header {
-            background: rgba(0, 0, 0, 0);
-            padding: 70px 20px 20px;
+            background: rgba(0, 0, 0, 0.5);
+            padding: 20px 20px 10px;
         }
 
         header h1 {
             font-size: 3em;
             margin: 0;
-            line-height: 1;
             font-family: "Maze Line Free", sans-serif;
             text-shadow: 
                 0 0 5px #ff0080, 
@@ -151,117 +150,4 @@
             font-size: 1em;
             color: #ffcc00;
             font-family: 'Roboto', sans-serif;
-        }
-
-        .model-textbox {
-            background: rgba(0, 0, 0, 0.5);
-            border: none;
-            border-radius: 5px;
-            padding: 10px 20px;
-            margin-top: 10px;
-            font-size: 1.2em;
-            color: #ffcc00;
-            max-width: 800px;
-            width: 100%;
-            box-shadow: 0 0 10px #ff0080;
-        }
-    </style>
-    <script type="module" src="https://unpkg.com/@google/model-viewer/dist/model-viewer.min.js"></script>
-</head>
-<body>
-    <header>
-        <h1>MAZE RUN</h1>
-    </header>
-
-    <main>
-        <div class="textbox" id="textbox" aria-live="polite">
-            Welcome to the AR model viewer! Use the buttons below to navigate through different models.
-        </div>
-        <div class="ar-container">
-            <model-viewer 
-                id="model-viewer"
-                src="Lab1.glb"
-                alt="Lab1"
-                ar
-                ar-modes="webxr scene-viewer quick-look" 
-                environment-image="neutral" 
-                auto-rotate
-                camera-controls
-                animation-name="CubeAction" 
-                animation-loop
-                loading="lazy">
-            </model-viewer>
-            <div class="ar-info">
-                <h3 id="model-name" aria-live="polite">Lab1</h3>
-            </div>
-        </div>
-        <div class="navigation">
-            <button id="prevButton" aria-label="Previous Model">&#8249;</button>
-            <button id="nextButton" aria-label="Next Model">&#8250;</button>
-        </div>
-        <div class="model-textbox" id="model-textbox" aria-live="polite">
-            This is Lab1, a basic maze model to get you started.
-        </div>
-    </main>
-
-    <footer>
-        &copy; 2024 Retro Labyrinth AR Viewer. All rights reserved.
-    </footer>
-
-    <script>
-        async function checkARCoreCompatibility() {
-            const modelViewer = document.getElementById('model-viewer');
-            if (!modelViewer) {
-                console.error("Model viewer not found.");
-                return;
-            }
-
-            try {
-                const isARCoreSupported = await navigator.xr.isSessionSupported('immersive-ar');
-                if (!isARCoreSupported) {
-                    modelViewer.removeAttribute('ar');
-                    modelViewer.removeAttribute('ar-modes');
-                    alert('Your device is not compatible with AR features. You can still view the 3D model.');
-                }
-            } catch (error) {
-                console.error('Error checking ARCore compatibility:', error);
-                alert('Error checking AR compatibility. You can still view the 3D model.');
-            }
-        }
-
-        const models = ['Lab1.glb', 'Lab2.glb', 'Lab3.glb'];
-        const modelNames = ['Lab1', 'Lab2', 'Lab3'];
-        const modelTexts = [
-            'This is Lab1, a basic maze model to get you started.',
-            'This is Lab2, a more advanced maze model with more challenges.',
-            'This is Lab3, the most complex maze model for advanced users.'
-        ];
-        let currentIndex = 0;
-
-        function prevModel() {
-            currentIndex = (currentIndex - 1 + models.length) % models.length;
-            updateModel();
-        }
-
-        function nextModel() {
-            currentIndex = (currentIndex + 1) % models.length;
-            updateModel();
-        }
-
-        function updateModel() {
-            const modelViewer = document.getElementById('model-viewer');
-            const modelName = document.getElementById('model-name');
-            const modelTextbox = document.getElementById('model-textbox');
-            
-            modelViewer.src = models[currentIndex];
-            modelName.textContent = modelNames[currentIndex];
-            modelTextbox.textContent = modelTexts[currentIndex];
-        }
-
-        document.getElementById('prevButton').addEventListener('click', prevModel);
-        document.getElementById('nextButton').addEventListener('click', nextModel);
-
-        checkARCoreCompatibility();
-    </script>
-</body>
-</html>
+       
