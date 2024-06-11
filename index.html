@@ -131,29 +131,23 @@
             text-shadow: none;
             font-family: 'Roboto', sans-serif;
         }
+ .navigation button {
+    cursor: pointer;
+    padding: 0px;
+    font-size: 4em;
+    transition: background 0.3s ease, transform 0.3s ease;
+    font-family: 'Roboto', sans-serif;
+    color: #ffcc00;
+    background: transparent; /* Changed background to transparent */
+    border: none; /* Remove border */
+}
 
-        .navigation {
-            position: absolute;
-            top: 50%;
-            transform: translateY(-50%);
-            display: flex;
-            justify-content: space-between;
-            width: 100%;
-            padding: 0 20px;
-            box-sizing: border-box;
-            z-index: 1;
-        }
+.navigation button:hover {
+    background: rgba(255, 255, 255, 0.8);
+    transform: scale(1.1);
+    color: #000;
+}
 
-        .navigation button {
-            
-            cursor: pointer;
-            padding: 0px;
-            font-size: 4em;
-            transition: background 0.3s ease, transform 0.3s ease;
-            font-family: 'Roboto', sans-serif;
-            color: #ffcc00;
-            box-shadow: 0 0 10px #ffcc00;
-        }
 
         .navigation button:hover {
             background: rgba(255, 255, 255, 0.8);
