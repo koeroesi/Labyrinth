@@ -5,6 +5,16 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>80s Game Style AR Model Viewer</title>
     <style>
+        @font-face {
+            font-family: "Maze Line Free";
+            src: url("https://db.onlinewebfonts.com/t/8470209f32efadf81ec0ccff6f016f9c.eot");
+            src: url("https://db.onlinewebfonts.com/t/8470209f32efadf81ec0ccff6f016f9c.eot?#iefix") format("embedded-opentype"),
+                 url("https://db.onlinewebfonts.com/t/8470209f32efadf81ec0ccff6f016f9c.woff2") format("woff2"),
+                 url("https://db.onlinewebfonts.com/t/8470209f32efadf81ec0ccff6f016f9c.woff") format("woff"),
+                 url("https://db.onlinewebfonts.com/t/8470209f32efadf81ec0ccff6f016f9c.ttf") format("truetype"),
+                 url("https://db.onlinewebfonts.com/t/8470209f32efadf81ec0ccff6f016f9c.svg#Maze Line Free") format("svg");
+        }
+
         body {
             margin: 0;
             padding: 0;
@@ -16,7 +26,7 @@
             background: linear-gradient(135deg, #ff0080, #8000ff), url('2d-maze-unisex-two-tone-hoodie.jpg');
             background-size: cover;
             background-blend-mode: overlay;
-            font-family: 'Maze Line', Free;
+            font-family: 'Maze Line Free', Free;
             color: white;
         }
 
@@ -32,24 +42,16 @@
             padding: 20px;
         }
 
-        header h1, header p {
-            text-shadow: 
-                0 0 5px #fff, 
-                0 0 10px #fff, 
-                0 0 15px #ff0080, 
-                0 0 20px #ff0080, 
-                0 0 25px #ff0080,
-                0 0 30px #ff0080,
-                0 0 35px #ff0080;
-        }
-
         header h1 {
-            font-size: 2.5em;
+            font-size: calc(10vw + 10vh);
             margin: 0;
-        }
-
-        header p {
-            font-size: 1.5em;
+            font-family: "Maze Line Free", sans-serif;
+            text-shadow: 
+                0 0 2px #fff, 
+                0 0 4px #fff, 
+                0 0 6px #ff0080, 
+                0 0 8px #ff0080, 
+                0 0 10px #ff0080;
         }
 
         main {
@@ -132,8 +134,7 @@
 </head>
 <body>
     <header>
-        <h1>Labyrinth Run</h1>
-        <p>Choose a Level, open the Ar Model and try to solve it! </p>
+        <h1>MAZE RUN</h1>
     </header>
 
     <main>
@@ -181,7 +182,6 @@
                 }
             } catch (error) {
                 console.error('Error checking ARCore compatibility:', error);
-                
             }
         }
 
@@ -221,5 +221,4 @@
         });
     </script>
 </body>
-</html> give me an option to control the rotation of the ar objects in the code 
-ChatGPT
+</html>
