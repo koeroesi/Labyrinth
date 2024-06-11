@@ -46,9 +46,9 @@
         }
 
         header h1 {
-            font-size: 6em;
+            font-size: 3em;
             margin: 0;
-            margin-top: 0.5cm;
+            line-height: 1;
             font-family: "Maze Line Free", sans-serif;
             text-shadow: 
                 0 0 5px #ff0080, 
@@ -62,7 +62,7 @@
 
         @media (min-width: 600px) {
             header h1 {
-                font-size: 10em;
+                font-size: 8em;
             }
         }
 
@@ -180,6 +180,7 @@
         <div class="ar-container">
             <model-viewer 
                 id="model-viewer"
+                src="Lab1.glb"
                 alt="Lab1"
                 ar
                 ar-modes="webxr scene-viewer quick-look" 
@@ -243,4 +244,24 @@
         }
 
         function nextModel() {
-            currentIndex = (currentIndex
+            currentIndex = (currentIndex + 1) % models.length;
+            updateModel();
+        }
+
+        function updateModel() {
+            const modelViewer = document.getElementById('model-viewer');
+            const modelName = document.getElementById('model-name');
+            const modelTextbox = document.getElementById('model-textbox');
+            
+            modelViewer.src = models[currentIndex];
+            modelName.textContent = modelNames[currentIndex];
+            modelTextbox.textContent = modelTexts[currentIndex];
+        }
+
+        document.getElementById('prevButton').addEventListener('click', prevModel);
+        document.getElementById('nextButton').addEventListener('click', nextModel);
+
+        checkARCoreCompatibility();
+    </script>
+</body>
+</html>
