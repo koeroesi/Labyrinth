@@ -46,7 +46,7 @@
         }
 
         header h1 {
-            font-size: 10em;
+            font-size: 6em;
             margin: 0;
             margin-top: 0.5cm;
             font-family: "Maze Line Free", sans-serif;
@@ -58,6 +58,12 @@
                 0 0 25px #ff0080,
                 0 0 30px #ff0080,
                 0 0 35px #ff0080;
+        }
+
+        @media (min-width: 600px) {
+            header h1 {
+                font-size: 10em;
+            }
         }
 
         main {
@@ -116,14 +122,9 @@
         }
 
         .navigation {
-            position: absolute;
-            top: 50%;
-            transform: translateY(-50%);
             display: flex;
-            justify-content: space-between;
-            width: 100%;
-            padding: 0 20px;
-            box-sizing: border-box;
+            justify-content: center;
+            margin-top: 10px;
             z-index: 1;
         }
 
@@ -136,6 +137,7 @@
             font-family: 'Roboto', sans-serif;
             color: #ffcc00;
             text-shadow: 0 0 10px #ffcc00;
+            margin: 0 10px;
         }
 
         .navigation button:hover {
@@ -176,10 +178,6 @@
             Welcome to the AR model viewer! Use the buttons below to navigate through different models.
         </div>
         <div class="ar-container">
-            <div class="navigation">
-                <button id="prevButton" aria-label="Previous Model">&#8249;</button>
-                <button id="nextButton" aria-label="Next Model">&#8250;</button>
-            </div>
             <model-viewer 
                 id="model-viewer"
                 alt="Lab1"
@@ -195,6 +193,10 @@
             <div class="ar-info">
                 <h3 id="model-name" aria-live="polite">Lab1</h3>
             </div>
+        </div>
+        <div class="navigation">
+            <button id="prevButton" aria-label="Previous Model">&#8249;</button>
+            <button id="nextButton" aria-label="Next Model">&#8250;</button>
         </div>
         <div class="model-textbox" id="model-textbox" aria-live="polite">
             This is Lab1, a basic maze model to get you started.
