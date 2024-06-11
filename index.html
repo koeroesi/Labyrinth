@@ -35,17 +35,15 @@
         header, main, footer {
             width: 100%;
             text-align: center;
-            padding: 12px;
             box-sizing: border-box;
         }
 
         header {
-            background: rgba(0, 0, 0, 0);
-            padding: 20px; /* Adjusted padding for better mobile view */
+            padding: 20px;
         }
 
         header h1 {
-            font-size: 6vw; /* Changed to vw for responsive font size */
+            font-size: 6vw;
             margin: 0;
             font-family: "Maze Line Free", sans-serif;
             text-shadow: 
@@ -63,14 +61,15 @@
             flex-direction: column;
             align-items: center;
             justify-content: center;
+            padding: 0 20px; /* Added padding for better mobile view */
         }
 
-        .textbox {
+        .textbox, .model-textbox {
             background: rgba(0, 0, 0, 0.5);
             border: none;
             border-radius: 5px;
             padding: 10px;
-            margin-bottom: 10px;
+            margin: 10px 0;
             font-size: 4vw; /* Changed to vw for responsive font size */
             color: #ffcc00;
             max-width: 90vw; /* Adjusted maximum width for better mobile view */
@@ -147,18 +146,6 @@
             color: #ffcc00;
             font-family: 'Roboto', sans-serif;
         }
-
-        .model-textbox {
-            background: rgba(0, 0, 0, 0.5);
-            border: none;
-            border-radius: 5px;
-            padding: 10px;
-            margin-top: 10px;
-            font-size: 4vw; /* Changed to vw for responsive font size */
-            color: #ffcc00;
-            max-width: 90vw; /* Adjusted maximum width for better mobile view */
-            box-shadow: 0 0 10px #ff0080;
-        }
     </style>
     <script type="module" src="https://unpkg.com/@google/model-viewer/dist/model-viewer.min.js"></script>
 </head>
@@ -168,4 +155,15 @@
     </header>
 
     <main>
+        <div class="textbox" id="textbox">
+            Welcome to the AR model viewer! Use the buttons below to navigate through different models.
+        </div>
        
+        <!-- Your other content goes here -->
+    </main>
+
+    <footer>
+        <!-- Your footer content goes here -->
+    </footer>
+</body>
+</html>
