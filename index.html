@@ -31,6 +31,7 @@
             background-blend-mode: overlay;
             font-family: 'Roboto', sans-serif;
             color: white;
+            position: relative; /* Add position relative to the body */
         }
 
         header, main, footer {
@@ -41,13 +42,14 @@
         }
 
         header {
-            background: rgba(0, 0, 0, 0.5);
-            padding: 20px 20px 10px;
+            background: rgba(0, 0, 0, 0);
+            padding: 70px 20px 20px; /* Added top padding for more space */
         }
 
         header h1 {
-            font-size: 3em;
+            font-size: 10em;
             margin: 0;
+            margin-top: 0.5cm; /* Move the headline lower */
             font-family: "Maze Line Free", sans-serif;
             text-shadow: 
                 0 0 5px #ff0080, 
@@ -59,18 +61,13 @@
                 0 0 35px #ff0080;
         }
 
-        @media (min-width: 600px) {
-            header h1 {
-                font-size: 8em;
-            }
-        }
-
         main {
             flex: 1;
             display: flex;
             flex-direction: column;
             align-items: center;
             justify-content: center;
+            position: relative; /* Add position relative to the main */
         }
 
         .textbox {
@@ -110,6 +107,7 @@
             bottom: 10px;
             width: 100%;
             text-align: center;
+            aria-live: polite;
         }
 
         .ar-info h3 {
@@ -121,27 +119,35 @@
         }
 
         .navigation {
+            position: absolute;
+            bottom: 20px; /* Adjust vertical position */
+            left: 0; /* Center horizontally */
+            right: 0; /* Center horizontally */
             display: flex;
-            justify-content: center;
-            margin-top: 10px;
+            justify-content: space-between;
+            width: 100%;
+            padding: 0 20px;
+            box-sizing: border-box;
             z-index: 1;
         }
 
         .navigation button {
-            background: none;
-            border: none;
+            background: rgba(255, 255, 255, 0.2);
+            border: none; /* Remove border */
+            border-radius: 0; /* Remove circular border */
             cursor: pointer;
-            font-size: 3em;
-            transition: transform 0.3s ease;
+            padding: 30px; /* Increase padding for larger arrows */
+            font-size: 4em; /* Increase arrow size */
+            transition: background 0.3s ease, transform 0.3s ease;
             font-family: 'Roboto', sans-serif;
             color: #ffcc00;
-            text-shadow: 0 0 10px #ffcc00;
-            margin: 0 10px;
+            box-shadow: 0 0 10px #ffcc00;
         }
 
         .navigation button:hover {
-            transform: scale(1.2);
-            color: #ffffff;
+            background: rgba(255, 255, 255, 0.8);
+            transform: scale(1.1);
+            color: #000;
         }
 
         footer {
@@ -165,25 +171,4 @@
             box-shadow: 0 0 10px #ff0080;
         }
     </style>
-    <script type="module" src="https://unpkg.com/@google/model-viewer/dist/model-viewer.min.js"></script>
-</head>
-<body>
-    <header>
-        <h1>MAZE RUN</h1>
-    </header>
-
-    <main>
-        <div class="textbox" id="textbox" aria-live="polite">
-            Welcome to the AR model viewer! Use the buttons below to navigate through different models.
-        </div>
-        <div class="ar-container">
-            <model-viewer 
-                id="model-viewer"
-                src="Lab1.glb"
-                alt="Lab1"
-                ar
-                ar-modes="webxr scene-viewer quick-look" 
-                environment-image="neutral" 
-                auto-rotate
-                camera-controls
-                animation-name="CubeAction"
+    <script type="module" src="https://unpkg.com/@google/model-viewer/dist/model-viewer
