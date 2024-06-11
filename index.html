@@ -49,20 +49,30 @@
             padding: 70px 20px 20px; /* Added top padding for more space */
         }
 
-        header h1 {
-            font-size: 3em;
-            margin: 0;
-            margin-top: 3cm; /* Move the headline lower */
-            font-family: "Maze Line Free", sans-serif;
-            text-shadow: 
-                0 0 5px #ff0080, 
-                0 0 10px #ff0080, 
-                0 0 15px #ff0080, 
-                0 0 20px #ff0080, 
-                0 0 25px #ff0080,
-                0 0 30px #ff0080,
-                0 0 35px #ff0080;
-        }
+       /* Default styling for the headline */
+header h1 {
+    font-size: 6em;
+    margin: 0;
+    margin-top: 3cm; /* Move the headline lower */
+    font-family: "Maze Line Free", sans-serif;
+    text-shadow: 
+        0 0 5px #ff0080, 
+        0 0 10px #ff0080, 
+        0 0 15px #ff0080, 
+        0 0 20px #ff0080, 
+        0 0 25px #ff0080,
+        0 0 30px #ff0080,
+        0 0 35px #ff0080;
+}
+
+/* Media query for smaller screens (e.g., mobile devices) */
+@media only screen and (max-width: 768px) {
+    header h1 {
+        font-size: 2em; /* Adjust font size for smaller screens */
+        margin-top: 1.5cm; /* Adjust top margin for smaller screens */
+    }
+}
+
 
         main {
             flex: 1;
