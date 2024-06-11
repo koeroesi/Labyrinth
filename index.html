@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -227,16 +226,16 @@
                 }
             } catch (error) {
                 console.error('Error checking ARCore compatibility:', error);
-                alert();
+                alert('Error checking AR compatibility. You can still view the 3D model.');
             }
         }
 
         const models = ['Lab1.glb', 'Lab2.glb', 'Lab3.glb'];
         const modelNames = ['Lab1', 'Lab2', 'Lab3'];
         const modelTexts = [
-            'Level 1, A basic maze model to get you started, get from the start to the end. Thats it.',
-            'Level 2, A mirror maze, dont get lost or spooked by the ghosts on your way to the end .',
-            'Level 3, Get to the Center of the Hedgemaze, if you make it have fun at the winners party.'
+            'This is Lab1, a basic maze model to get you started.',
+            'This is Lab2, a more advanced maze model with more challenges.',
+            'This is Lab3, the most complex maze model for advanced users.'
         ];
         let currentIndex = 0;
 
@@ -274,3 +273,4 @@
         });
     </script>
 </body>
+</html>
